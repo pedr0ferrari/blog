@@ -7,7 +7,7 @@ const PostList = dynamic(() => import("../components/postList"), {
   ssr: false,
 });
 
-function HomePage() {
+const HomePage = () => {
   return (
     <>
       <Header />
@@ -16,5 +16,5 @@ function HomePage() {
       </Main>
     </>
   );
-}
+};
 export default HomePage;

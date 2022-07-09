@@ -1,12 +1,12 @@
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
 
-function Postagens() {
+const Perfil = () => {
   return (
     <>
       <Header />
-      <Main>bla2 bla2 bla2 bla2</Main>
+      <Main>bla bla bla bla</Main>
     </>
   );
-}
-export default Postagens;
+};
+export default Perfil;

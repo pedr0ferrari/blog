@@ -4,7 +4,7 @@ import { Button, Flex, Heading } from "@chakra-ui/react";
 import handler from "../../pages/api/hello";
 import { useRouter } from "next/router";
 
-function Header() {
+const Header = () => {
   const router = useRouter();
   const handleRoute = (path: string) => {
     router.push(path);
@@ -35,9 +35,9 @@ function Header() {
           size="lg"
           as="a"
           colorScheme="yellow"
-          onClick={() => handleRoute("/postagens")}
+          onClick={() => handleRoute("/meusposts")}
         >
-          Postagens
+          Meus Posts
         </Button>
 
         <Button
@@ -53,13 +53,13 @@ function Header() {
           size="lg"
           as="a"
           colorScheme="yellow"
-          onClick={() => handleRoute("/sobre")}
+          onClick={() => handleRoute("/perfil")}
         >
-          Sobre
+          Perfil
         </Button>
       </Flex>
     </Flex>
   );
-}
+};
 
 export default Header;
