@@ -1,6 +1,5 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import styles from "./styles.module.css";
 
 const Main: React.FC<{
   children: React.ReactNode;

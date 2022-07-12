@@ -57,6 +57,22 @@ const Header = () => {
         >
           Perfil
         </Button>
+        <Button
+          size="lg"
+          as="a"
+          colorScheme="yellow"
+          onClick={() => handleRoute("/registro")}
+        >
+          Registro
+        </Button>
+        <Button
+          size="lg"
+          as="a"
+          colorScheme="yellow"
+          onClick={() => handleRoute("/login")}
+        >
+          Login
+        </Button>
       </Flex>
     </Flex>
   );
