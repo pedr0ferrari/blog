@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
+import React from "react";
 
 const Contato = () => {
   const [nome, setNome] = useState("");

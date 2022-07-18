@@ -1,10 +1,12 @@
-import Link from "next/link";
-import styles from "./header.module.css";
+import React, { useContext } from "react";
 import { Button, Flex, Heading } from "@chakra-ui/react";
-import handler from "../../pages/api/hello";
 import { useRouter } from "next/router";
+import { FirebaseCtx } from "../../config/context";
+import useLoggedInUser from "../../hooks/useLoggedInUser";
 
 const Header = () => {
+  const { user } = useLoggedInUser();
+  const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
   const handleRoute = (path: string) => {
     router.push(path);
@@ -18,62 +20,104 @@ const Header = () => {
       alignItems="center"
       backgroundColor="antiquewhite"
     >
-      <Heading size="2xl" flexGrow="1">
-        *~ITALO VIADO~*
-      </Heading>
-      <Flex as="nav" gap={3}>
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/")}
-        >
-          Home
-        </Button>
+      {user ? (
+        <Heading size="2xl" flexGrow="1">
+          {user.name}
+        </Heading>
+      ) : (
+        <Heading size="2xl" flexGrow="1">
+          *~ITALO VIADO~*
+        </Heading>
+      )}
 
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/meusposts")}
-        >
-          Meus Posts
-        </Button>
+      {user ? (
+        <Flex as="nav" gap={3}>
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/")}
+          >
+            Home
+          </Button>
 
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/contato")}
-        >
-          Contato
-        </Button>
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/meusposts")}
+          >
+            Meus Posts
+          </Button>
 
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/perfil")}
-        >
-          Perfil
-        </Button>
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/registro")}
-        >
-          Registro
-        </Button>
-        <Button
-          size="lg"
-          as="a"
-          colorScheme="yellow"
-          onClick={() => handleRoute("/login")}
-        >
-          Login
-        </Button>
-      </Flex>
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/contato")}
+          >
+            Contato
+          </Button>
+
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/perfil")}
+          >
+            Perfil
+          </Button>
+
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={async () => {
+              await auth.signOut();
+              handleRoute("/");
+            }}
+          >
+            Logout
+          </Button>
+        </Flex>
+      ) : (
+        <Flex as="nav" gap={3}>
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/")}
+          >
+            Home
+          </Button>
+
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/contato")}
+          >
+            Contato
+          </Button>
+
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/registro")}
+          >
+            Registro
+          </Button>
+          <Button
+            size="lg"
+            as="a"
+            colorScheme="yellow"
+            onClick={() => handleRoute("/login")}
+          >
+            Login
+          </Button>
+        </Flex>
+      )}
     </Flex>
   );
 };

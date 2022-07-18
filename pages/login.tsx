@@ -1,7 +1,58 @@
-import React from "react";
+import { Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import Header from "../components/header/header";
+import { FirebaseCtx } from "../config/context";
+import Main from "../layouts/Main";
 
-const login = () => {
-  return <div>login</div>;
+const Login: React.FC = () => {
+  const { auth } = useContext(FirebaseCtx);
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const handleLogin = async (data: any) => {
+    console.log("data", data);
+    const res = await auth.signInWithEmailAndPassword(
+      data.email,
+      data.password
+    );
+    console.log(res);
+  };
+  return (
+    <>
+      <Header />
+      <Main>
+        <Flex
+          as="form"
+          direction="column"
+          gap={5}
+          onSubmit={handleSubmit(handleLogin)}
+        >
+          Faça o login.
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              placeholder="Insira seu Email"
+              type="email"
+              {...register("email")}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Senha</FormLabel>
+            <Input
+              placeholder="Insira sua senha"
+              type="password"
+              {...register("password")}
+            />
+          </FormControl>
+          <Button type="submit">Login</Button>
+        </Flex>
+      </Main>
+    </>
+  );
 };
 
-export default login;
+export default Login;

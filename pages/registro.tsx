@@ -14,6 +14,7 @@ import { FirebaseCtx } from "../config/context";
 import Main from "../layouts/Main";
 
 const Registro: React.FC = () => {
+  const { auth, firestore } = useContext(FirebaseCtx);
   const {
     register,
     handleSubmit,
@@ -28,24 +29,45 @@ const Registro: React.FC = () => {
     },
   });
 
-  const handleRegister = (data: any) => {
+  const handleRegister = async (data: any) => {
     console.log("data", data);
+
     if (data.password !== data.confirmPassword) {
       setError("password", {
         type: "custom",
         message: "Você inseriu senhas diferentes, tente novamente.",
       });
+
       setError("confirmPassword", {
         type: "custom",
         message: "Você inseriu senhas diferentes, tente novamente.",
       });
-    } else {
-      const newUser = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      };
-      console.log("newUser", newUser);
+    }
+
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    console.log("newUser", newUser);
+    await createUser(newUser);
+  };
+
+  const createUser = async (newUser) => {
+    try {
+      const {
+        user: { uid },
+      } = await auth.createUserWithEmailAndPassword(
+        newUser.email,
+        newUser.password
+      );
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .set({ email: newUser.email, name: newUser.name });
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
