@@ -1,5 +1,6 @@
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
+import React from "react";
 
 function MeusPosts() {
   return (
