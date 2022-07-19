@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import {
   Button,
   Flex,
@@ -7,11 +7,20 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Header from "../components/header/header";
 import { FirebaseCtx } from "../config/context";
 import Main from "../layouts/Main";
+import { useRouter } from "next/router";
+
+type RegisterData = {
+  name: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+};
 
 const Registro: React.FC = () => {
   const { auth, firestore } = useContext(FirebaseCtx);
@@ -20,7 +29,7 @@ const Registro: React.FC = () => {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm({
+  } = useForm<RegisterData>({
     defaultValues: {
       name: "",
       password: "",
@@ -29,7 +38,10 @@ const Registro: React.FC = () => {
     },
   });
 
-  const handleRegister = async (data: any) => {
+  const toast = useToast();
+  const router = useRouter();
+
+  const handleRegister = async (data: RegisterData) => {
     console.log("data", data);
 
     if (data.password !== data.confirmPassword) {
@@ -52,6 +64,7 @@ const Registro: React.FC = () => {
 
     console.log("newUser", newUser);
     await createUser(newUser);
+    router.push("/");
   };
 
   const createUser = async (newUser) => {
@@ -62,12 +75,17 @@ const Registro: React.FC = () => {
         newUser.email,
         newUser.password
       );
+
       await firestore
         .collection("users")
         .doc(uid)
         .set({ email: newUser.email, name: newUser.name });
     } catch (error) {
       console.error(error);
+      toast({
+        title: error.message,
+        status: "error",
+      });
     }
   };
   return (

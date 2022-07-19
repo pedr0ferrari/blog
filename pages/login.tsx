@@ -1,26 +1,34 @@
 import { Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Header from "../components/header/header";
 import { FirebaseCtx } from "../config/context";
 import Main from "../layouts/Main";
 
+type LoginData = { email: string; password: string };
+
 const Login: React.FC = () => {
   const { auth } = useContext(FirebaseCtx);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<LoginData>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  const handleLogin = async (data: any) => {
+
+  const router = useRouter();
+
+  const handleLogin = async (data: LoginData) => {
     console.log("data", data);
     const res = await auth.signInWithEmailAndPassword(
       data.email,
       data.password
     );
     console.log(res);
+    router.push("/");
   };
+
   return (
     <>
       <Header />

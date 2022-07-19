@@ -12,6 +12,8 @@
   "rules": {
     "@next/next/no-img-element": "off",
     "react/prop-types": 0,
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "@typescript-eslint/explicit-module-bondary-types": 0,
+    "react-hooks/exhaustive-deps": "off"
   }
 }
