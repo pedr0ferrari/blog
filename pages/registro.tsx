@@ -42,8 +42,6 @@ const Registro: React.FC = () => {
   const router = useRouter();
 
   const handleRegister = async (data: RegisterData) => {
-    console.log("data", data);
-
     if (data.password !== data.confirmPassword) {
       setError("password", {
         type: "custom",
