@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { FirebaseCtx } from "../config/context";
+import { UserType } from "../interface/User";
 
-type UserType = { name: string; email: string };
 const useLoggedInUser = () => {
   // usar contexto do firebase para pegar o authuser
   const { authUser, firestore } = useContext(FirebaseCtx);
@@ -33,7 +33,7 @@ const useLoggedInUser = () => {
   }, [firebaseUserID]);
 
   // retornar o estado de login (authstate)
-  return { user };
+  return { user, authState: "LOADING" };
 };
 
 export default useLoggedInUser;

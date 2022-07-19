@@ -58,6 +58,7 @@ const Registro: React.FC = () => {
       name: data.name,
       email: data.email,
       password: data.password,
+      createdAt: Date.now(),
     };
 
     console.log("newUser", newUser);
@@ -74,10 +75,11 @@ const Registro: React.FC = () => {
         newUser.password
       );
 
-      await firestore
-        .collection("users")
-        .doc(uid)
-        .set({ email: newUser.email, name: newUser.name });
+      await firestore.collection("users").doc(uid).set({
+        email: newUser.email,
+        name: newUser.name,
+        createdAt: newUser.createdAt,
+      });
     } catch (error) {
       console.error(error);
       toast({

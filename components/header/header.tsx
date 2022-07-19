@@ -8,6 +8,9 @@ const Header = () => {
   const { user } = useLoggedInUser();
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
+
+  const firstName = user && user.name.split(" ").slice(0, 1);
+
   const handleRoute = (path: string) => {
     router.push(path);
   };
@@ -22,7 +25,7 @@ const Header = () => {
     >
       {user ? (
         <Heading size="2xl" flexGrow="1">
-          {user.name}
+          {firstName}
         </Heading>
       ) : (
         <Heading size="2xl" flexGrow="1">
