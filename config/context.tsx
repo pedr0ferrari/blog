@@ -14,13 +14,13 @@ export const FirebaseCtx = React.createContext<FirebaseCtxType>(
 );
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBPaDSzfhg1tuafAab3YgaSvqgpBkhCA08",
-  authDomain: "blog-ffb3e.firebaseapp.com",
-  projectId: "blog-ffb3e",
-  storageBucket: "blog-ffb3e.appspot.com",
-  messagingSenderId: "134131214803",
-  appId: "1:134131214803:web:953323610b7bf2cb45a726",
-  measurementId: "G-ECTRG0DTCJ",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 try {
