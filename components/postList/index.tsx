@@ -1,6 +1,6 @@
 import React from "react";
 import PostCard, { Author } from "./post";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 export interface PostInterface {
   title: string;
   content: string;

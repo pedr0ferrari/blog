@@ -20,12 +20,7 @@ const Login: React.FC = () => {
   const router = useRouter();
 
   const handleLogin = async (data: LoginData) => {
-    console.log("data", data);
-    const res = await auth.signInWithEmailAndPassword(
-      data.email,
-      data.password
-    );
-    console.log(res);
+    await auth.signInWithEmailAndPassword(data.email, data.password);
     router.push("/");
   };
 

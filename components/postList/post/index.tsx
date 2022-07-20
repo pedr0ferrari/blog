@@ -1,4 +1,4 @@
-import { Flex, GridItem, VStack } from "@chakra-ui/react";
+import { Flex, GridItem } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import React from "react";
