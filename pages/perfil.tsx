@@ -4,20 +4,22 @@ import React, { useState } from "react";
 import { Button, Flex, FormControl, Input, Text } from "@chakra-ui/react";
 import useLoggedInUser from "../hooks/useLoggedInUser";
 import { useForm } from "react-hook-form";
-import EditProfile from "../components/profile/EditProfile";
+import EditProfile from "../components/profile/EditProfileForm";
+import EditPassword from "../components/profile/EditPassword";
 
 //nome completo e email cadastrado.
 //data de criação de conta.
 //quantidade de posts feitos.
 
 const Perfil: React.FC = () => {
+  const [profileIsOpen, setProfileIsOpen] = useState(false);
+  console.log(profileIsOpen);
+
   const { user } = useLoggedInUser();
 
   const createdAtFormated =
     user && new Date(user.createdAt).toLocaleDateString();
 
-  const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
   return (
     <>
       <Header />
@@ -29,9 +31,13 @@ const Perfil: React.FC = () => {
           <Text>Nome: {user && user.name}</Text>
           <Text>Email: {user && user.email}</Text>
           <Text>Conta criada em: {createdAtFormated}</Text>
-          <Button onClick={() => setIsOpen(!isOpen)}>Editar perfil</Button>
 
-          {isOpen && user ? <EditProfile user={user} /> : <></>}
+          <Button onClick={() => setProfileIsOpen(!profileIsOpen)}>
+            Editar perfil
+          </Button>
+          {profileIsOpen && user ? <EditProfile user={user} /> : <></>}
+
+          <EditPassword user={user} />
         </Flex>
       </Main>
     </>
