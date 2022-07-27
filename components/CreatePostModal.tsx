@@ -47,6 +47,10 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       if (postId) {
         onClose();
         reset();
+        toast({
+          title: "Postagem criada com sucesso!",
+          status: "success",
+        });
       }
     } catch (error) {
       toast({
