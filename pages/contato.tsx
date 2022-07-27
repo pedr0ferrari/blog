@@ -7,6 +7,7 @@ import {
   FormHelperText,
   FormErrorMessage,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Header from "../components/header/header";
@@ -27,7 +28,9 @@ const Contato = () => {
       <Header />
       <Main>
         <Flex as="form" direction="column" gap={5}>
-          Entre em contato conosco!
+          <Text fontSize="3xl" fontWeight="extrabold">
+            Entre em contato conosco!
+          </Text>
           <FormControl>
             <FormLabel>Nome</FormLabel>
             <Input

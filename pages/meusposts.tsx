@@ -1,13 +1,25 @@
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
 import React from "react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 
-function MeusPosts() {
+import CreatePostModal from "../components/CreatePostModal";
+
+//criar botao input
+// armazenar inputs no BD
+//renderizar textos do BD na tela
+
+const MeusPosts: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       <Header />
-      <Main>bla2 bla2 bla2 bla2</Main>
+      <Main>
+        <Button onClick={onOpen}>abre modal</Button>
+        <CreatePostModal isOpen={isOpen} onClose={onClose} />
+      </Main>
     </>
   );
-}
+};
 export default MeusPosts;
