@@ -16,7 +16,7 @@ const MeusPosts: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Button onClick={onOpen}>abre modal</Button>
+        <Button onClick={onOpen}>Criar postagem</Button>
         <CreatePostModal isOpen={isOpen} onClose={onClose} />
       </Main>
     </>
