@@ -79,6 +79,7 @@ const Registro: React.FC = () => {
         email: newUser.email,
         name: newUser.name,
         createdAt: newUser.createdAt,
+        uid: uid,
       });
     } catch (error) {
       console.error(error);

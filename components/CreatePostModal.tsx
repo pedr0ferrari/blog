@@ -19,6 +19,7 @@ import {
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FirebaseCtx } from "../config/context";
+import useLoggedInUser from "../hooks/useLoggedInUser";
 
 type PostData = {
   title: string;
@@ -28,6 +29,7 @@ type PostData = {
 const CreatePostModal = ({ isOpen, onClose }) => {
   const { firestore } = useContext(FirebaseCtx);
   const toast = useToast();
+  const { user } = useLoggedInUser();
 
   const {
     handleSubmit,
@@ -69,6 +71,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       await postRef.set({
         ...newPost,
         uid: postId,
+        userId: user && user.uid,
         createdAt: Date.now(),
       });
 

@@ -13,7 +13,7 @@ const HomePage = () => {
     <>
       <Header />
       <Main>
-        <PostList list={postList} />
+        <PostList />
       </Main>
     </>
   );
