@@ -1,13 +1,9 @@
+import React from "react";
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
-import React from "react";
 import { Button, useDisclosure } from "@chakra-ui/react";
 
-import CreatePostModal from "../components/CreatePostModal";
-
-//criar botao input
-// armazenar inputs no BD
-//renderizar textos do BD na tela
+import MyPosts from "../components/myposts";
 
 const MeusPosts: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,8 +12,10 @@ const MeusPosts: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Button onClick={onOpen}>Criar postagem</Button>
-        <CreatePostModal isOpen={isOpen} onClose={onClose} />
+        <Button onClick={onOpen} width="max-content">
+          Criar postagem
+        </Button>
+        <MyPosts isOpen={isOpen} onClose={onClose} />
       </Main>
     </>
   );
