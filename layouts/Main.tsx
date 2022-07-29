@@ -9,6 +9,7 @@ const Main: React.FC<{
       as="main"
       maxWidth="1140px"
       minHeight="90vh"
+      direction="column"
       padding="2rem 4rem"
       margin="0 auto"
       backgroundColor="rgb(213, 216, 196)"

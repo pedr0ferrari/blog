@@ -4,4 +4,5 @@ export interface PostInterface {
   description: string;
   userId: string;
   createdAt: number;
+  uid: string;
 }
