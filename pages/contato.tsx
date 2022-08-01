@@ -8,15 +8,18 @@ import {
   FormErrorMessage,
   Button,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { FirebaseCtx } from "../config/context";
 
 type ContactData = { name: string; email: string; message: string };
 
 const Contato: React.FC = () => {
+  const { firestore } = useContext(FirebaseCtx);
   const { register, handleSubmit } = useForm<ContactData>({
     defaultValues: {
       name: "",
@@ -25,8 +28,33 @@ const Contato: React.FC = () => {
     },
   });
 
-  const handleContact = (data) => {
-    console.log(data.name, data.email, data.message);
+  const toast = useToast();
+
+  const handleContact = async (data) => {
+    try {
+      const messageId = await createContactMessage(data);
+      console.log(data.name, data.email, data.message);
+      if (messageId) {
+        toast({
+          title: "Mensagem enviada com sucesso!",
+          description: "Entraremos em contato em breve.",
+          status: "success",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createContactMessage = async (message) => {
+    try {
+      const messageRef = firestore.collection("contactMessage").doc();
+      const messageId = messageRef.id;
+      await messageRef.set({ ...message });
+      return messageId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   return (
