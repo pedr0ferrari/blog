@@ -35,7 +35,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
     handleSubmit,
     register,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<PostData>({
     defaultValues: {
       title: "",
@@ -127,7 +127,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="yellow" type="submit">
+          <Button isDisabled={!isValid} colorScheme="yellow" type="submit">
             Criar
           </Button>
           <Button onClick={closeAndReset}>Fechar</Button>

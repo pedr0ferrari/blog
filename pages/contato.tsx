@@ -20,12 +20,17 @@ type ContactData = { name: string; email: string; message: string };
 
 const Contato: React.FC = () => {
   const { firestore } = useContext(FirebaseCtx);
-  const { register, handleSubmit } = useForm<ContactData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ContactData>({
     defaultValues: {
       name: "",
       email: "",
       message: "",
     },
+    mode: "onChange",
   });
 
   const toast = useToast();
@@ -67,24 +72,55 @@ const Contato: React.FC = () => {
           gap={5}
           onSubmit={handleSubmit(handleContact)}
         >
-          <Text fontSize="3xl" fontWeight="extrabold">
+          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
             Entre em contato conosco!
           </Text>
-          <FormControl>
+          <FormControl isInvalid={Boolean(errors.name)}>
             <FormLabel>Nome</FormLabel>
-            <Input placeholder="Nome completo" {...register("name")} />
+            <Input
+              placeholder="Nome completo"
+              {...register("name", {
+                required: "Obrigatório preencher este campo!",
+                minLength: { value: 3, message: "Nome muito curto..." },
+              })}
+            />
+            <FormErrorMessage>
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
           </FormControl>
-          <FormControl>
+
+          <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor="email">Email</FormLabel>
-            <Input placeholder="Email" type="email" {...register("email")} />
-            <FormErrorMessage>Email inválido.</FormErrorMessage>
+            <Input
+              placeholder="Email"
+              type="email"
+              {...register("email", {
+                required: "Obrigatório preencher este campo!",
+              })}
+            />
+            <FormErrorMessage>
+              {errors.email && errors.email.message}.
+            </FormErrorMessage>
             <FormHelperText>Nunca compartilharemos seu email.</FormHelperText>
           </FormControl>
-          <FormControl>
+
+          <FormControl isInvalid={Boolean(errors.message)}>
             <FormLabel>Mensagem</FormLabel>
-            <Textarea placeholder="Mensagem" {...register("message")} />
+            <Textarea
+              placeholder="Mensagem"
+              {...register("message", {
+                required: "Obrigatório preencher este campo!",
+                minLength: { value: 20, message: "Mensagem muito curta..." },
+              })}
+            />
+            <FormErrorMessage>
+              {errors.message && errors.message.message}
+            </FormErrorMessage>
           </FormControl>
-          <Button type="submit">Enviar</Button>
+
+          <Button type="submit" isDisabled={!isValid}>
+            Enviar
+          </Button>
         </Flex>
       </Main>
     </>
