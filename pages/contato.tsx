@@ -8,63 +8,119 @@ import {
   FormErrorMessage,
   Button,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
-import React from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { FirebaseCtx } from "../config/context";
 
-const Contato = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [mensagem, setMensagem] = useState("");
+type ContactData = { name: string; email: string; message: string };
 
-  const handleSubmit = () => {
-    console.log({ nome, email, mensagem });
+const Contato: React.FC = () => {
+  const { firestore } = useContext(FirebaseCtx);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ContactData>({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+    mode: "onChange",
+  });
+
+  const toast = useToast();
+
+  const handleContact = async (data) => {
+    try {
+      const messageId = await createContactMessage(data);
+      console.log(data.name, data.email, data.message);
+      if (messageId) {
+        toast({
+          title: "Mensagem enviada com sucesso!",
+          description: "Entraremos em contato em breve.",
+          status: "success",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createContactMessage = async (message) => {
+    try {
+      const messageRef = firestore.collection("contactMessage").doc();
+      const messageId = messageRef.id;
+      await messageRef.set({ ...message });
+      return messageId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   return (
     <>
       <Header />
       <Main>
-        <Flex as="form" direction="column" gap={5}>
-          <Text fontSize="3xl" fontWeight="extrabold">
+        <Flex
+          as="form"
+          direction="column"
+          gap={5}
+          onSubmit={handleSubmit(handleContact)}
+        >
+          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
             Entre em contato conosco!
           </Text>
-          <FormControl>
+          <FormControl isInvalid={Boolean(errors.name)}>
             <FormLabel>Nome</FormLabel>
             <Input
               placeholder="Nome completo"
-              value={nome}
-              onChange={(event) => {
-                setNome(event.target.value);
-              }}
+              {...register("name", {
+                required: "Obrigatório preencher este campo!",
+                minLength: { value: 3, message: "Nome muito curto..." },
+              })}
             />
+            <FormErrorMessage>
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
           </FormControl>
-          <FormControl>
+
+          <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor="email">Email</FormLabel>
             <Input
               placeholder="Email"
               type="email"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
+              {...register("email", {
+                required: "Obrigatório preencher este campo!",
+              })}
             />
-            <FormErrorMessage>Email inválido.</FormErrorMessage>
+            <FormErrorMessage>
+              {errors.email && errors.email.message}.
+            </FormErrorMessage>
             <FormHelperText>Nunca compartilharemos seu email.</FormHelperText>
           </FormControl>
-          <FormControl>
+
+          <FormControl isInvalid={Boolean(errors.message)}>
             <FormLabel>Mensagem</FormLabel>
             <Textarea
               placeholder="Mensagem"
-              value={mensagem}
-              onChange={(event) => {
-                setMensagem(event.target.value);
-              }}
+              {...register("message", {
+                required: "Obrigatório preencher este campo!",
+                minLength: { value: 20, message: "Mensagem muito curta..." },
+              })}
             />
+            <FormErrorMessage>
+              {errors.message && errors.message.message}
+            </FormErrorMessage>
           </FormControl>
-          <Button onClick={handleSubmit}>Enviar</Button>
+
+          <Button type="submit" isDisabled={!isValid}>
+            Enviar
+          </Button>
         </Flex>
       </Main>
     </>

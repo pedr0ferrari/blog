@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Header from "../components/header/header";
@@ -27,7 +28,7 @@ const Registro: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
   } = useForm<RegisterData>({
     defaultValues: {
@@ -36,6 +37,7 @@ const Registro: React.FC = () => {
       confirmPassword: "",
       email: "",
     },
+    mode: "onChange",
   });
 
   const toast = useToast();
@@ -99,39 +101,72 @@ const Registro: React.FC = () => {
           gap={5}
           onSubmit={handleSubmit(handleRegister)}
         >
-          Registre-se.
-          <FormControl>
+          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
+            Registre-se
+          </Text>
+          <FormControl isInvalid={Boolean(errors.name)}>
             <FormLabel>Nome</FormLabel>
-            <Input placeholder="Nome Completo" {...register("name")} />
+            <Input
+              placeholder="Nome Completo"
+              {...register("name", {
+                required: "Obrigatório preencher este campo!",
+                minLength: { value: 3, message: "Nome muito curto..." },
+              })}
+            />
+            <FormErrorMessage>
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
           </FormControl>
-          <FormControl>
+
+          <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel>Email</FormLabel>
             <Input
               type="email"
               placeholder="Digite seu email"
-              {...register("email")}
+              {...register("email", {
+                required: "Obrigatório preencher este campo!",
+              })}
             />
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
           </FormControl>
+
           <FormControl isInvalid={Boolean(errors.password)}>
             <FormLabel>Senha</FormLabel>
             <Input
               type="password"
               placeholder="Digite sua senha"
-              {...register("password")}
+              {...register("password", {
+                required: "Obrigatório preencher este campo!",
+                minLength: {
+                  value: 6,
+                  message: "Senha deve conter no mínimo 6 caractéres.",
+                },
+              })}
             />
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
           </FormControl>
+
           <FormControl isInvalid={Boolean(errors.confirmPassword)}>
             <FormLabel>Confirme sua senha</FormLabel>
             <Input
               type="password"
               placeholder="Confirme sua senha"
-              {...register("confirmPassword")}
+              {...register("confirmPassword", {
+                required: "Obrigatório preencher este campo!",
+              })}
             />
             <FormErrorMessage>
               {errors.confirmPassword && errors.confirmPassword.message}
             </FormErrorMessage>
           </FormControl>
-          <Button type="submit">Enviar</Button>
+
+          <Button type="submit" isDisabled={!isValid}>
+            Enviar
+          </Button>
         </Flex>
       </Main>
     </>
