@@ -9,62 +9,54 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import Header from "../components/header/header";
 import Main from "../layouts/Main";
 import React from "react";
+import { useForm } from "react-hook-form";
 
-const Contato = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [mensagem, setMensagem] = useState("");
+type ContactData = { name: string; email: string; message: string };
 
-  const handleSubmit = () => {
-    console.log({ nome, email, mensagem });
+const Contato: React.FC = () => {
+  const { register, handleSubmit } = useForm<ContactData>({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const handleContact = (data) => {
+    console.log(data.name, data.email, data.message);
   };
 
   return (
     <>
       <Header />
       <Main>
-        <Flex as="form" direction="column" gap={5}>
+        <Flex
+          as="form"
+          direction="column"
+          gap={5}
+          onSubmit={handleSubmit(handleContact)}
+        >
           <Text fontSize="3xl" fontWeight="extrabold">
             Entre em contato conosco!
           </Text>
           <FormControl>
             <FormLabel>Nome</FormLabel>
-            <Input
-              placeholder="Nome completo"
-              value={nome}
-              onChange={(event) => {
-                setNome(event.target.value);
-              }}
-            />
+            <Input placeholder="Nome completo" {...register("name")} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="email">Email</FormLabel>
-            <Input
-              placeholder="Email"
-              type="email"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-            />
+            <Input placeholder="Email" type="email" {...register("email")} />
             <FormErrorMessage>Email inválido.</FormErrorMessage>
             <FormHelperText>Nunca compartilharemos seu email.</FormHelperText>
           </FormControl>
           <FormControl>
             <FormLabel>Mensagem</FormLabel>
-            <Textarea
-              placeholder="Mensagem"
-              value={mensagem}
-              onChange={(event) => {
-                setMensagem(event.target.value);
-              }}
-            />
+            <Textarea placeholder="Mensagem" {...register("message")} />
           </FormControl>
-          <Button onClick={handleSubmit}>Enviar</Button>
+          <Button type="submit">Enviar</Button>
         </Flex>
       </Main>
     </>
