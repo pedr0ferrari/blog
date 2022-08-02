@@ -27,6 +27,13 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         return data;
       });
 
+      const orderedList = postsList.sort((x, y) => {
+        return x.createdAt - y.createdAt;
+      });
+
+      orderedList.reverse();
+
+      console.log(orderedList);
       setList(postsList);
     } catch (error) {
       // change this to TOAST with error

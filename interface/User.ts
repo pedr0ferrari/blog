@@ -4,5 +4,5 @@ export interface UserType {
   email: string;
   createdAt: string | number;
   uid?: string;
-  avatar_url: string;
+  avatarUrl: string;
 }
