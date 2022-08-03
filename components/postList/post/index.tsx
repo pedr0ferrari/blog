@@ -1,16 +1,13 @@
 import { Flex, GridItem } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import firebase from "firebase";
 import React, { useContext, useEffect, useState } from "react";
 
 import { FirebaseCtx } from "../../../config/context";
+import useLoggedInUser from "../../../hooks/useLoggedInUser";
 import { PostInterface } from "../../../interface/Post";
 import { UserType } from "../../../interface/User";
-
-export interface Author {
-  name: string;
-  avatar_url: string;
-}
 
 const PostCard: React.FC<{
   post: PostInterface;
@@ -18,6 +15,8 @@ const PostCard: React.FC<{
 }> = ({ post, index }) => {
   const { firestore } = useContext(FirebaseCtx);
   const [author, setAuthor] = useState<UserType | null>(null);
+  const [authorAvatarUrl, setAuthorAvatarUrl] = useState<string>("");
+  const { user } = useLoggedInUser();
 
   const handleGetUserById = async () => {
     try {
@@ -30,6 +29,25 @@ const PostCard: React.FC<{
       console.log(error);
     }
   };
+
+  const getHttpReference = (avatarPath) => {
+    const storage = firebase.storage();
+    const pathReference = storage.ref();
+    pathReference
+      .child(`userAvatar/${avatarPath}`)
+      .getDownloadURL()
+      .then((url) => {
+        setAuthorAvatarUrl(url);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    console.log(user && user.avatarUrl);
+    user && getHttpReference(user.avatarUrl);
+  }, [user]);
 
   useEffect(() => {
     handleGetUserById();
@@ -54,8 +72,8 @@ const PostCard: React.FC<{
                 w={10}
                 h={10}
                 borderRadius="full"
-                src={author && author.avatar_url}
-                alt="Avatar de Pedro Ferrari"
+                src={authorAvatarUrl}
+                alt={author && `avatar de ${author.name}`}
               />
               <Flex direction="column" paddingX={2}>
                 <p>author: {author && author.name}</p>
@@ -84,8 +102,8 @@ const PostCard: React.FC<{
             w={10}
             h={10}
             borderRadius="full"
-            src={author && author.avatar_url}
-            alt="Avatar de Pedro Ferrari"
+            src={authorAvatarUrl}
+            alt={author && `avatar de ${author.name}`}
           />
           <Flex direction="column" paddingX={2}>
             <p>author: {author && author.name}</p>

@@ -1,6 +1,5 @@
 import {
   Button,
-  effect,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -11,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Header from "../components/header/header";
 import { FirebaseCtx } from "../config/context";
 import Main from "../layouts/Main";

@@ -41,6 +41,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       title: "",
       content: "",
     },
+    mode: "onChange",
   });
 
   const handleCreatePost = async (data: PostData) => {
@@ -119,7 +120,8 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                 {...register("content", {
                   required: "Obrigatório preencher este campo!",
                 })}
-              ></Textarea>
+              />
+
               <FormErrorMessage>
                 {errors.content && errors.content.message}
               </FormErrorMessage>
@@ -127,7 +129,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button isDisabled={!isValid} colorScheme="yellow" type="submit">
+          <Button type="submit" isDisabled={!isValid} colorScheme="yellow">
             Criar
           </Button>
           <Button onClick={closeAndReset}>Fechar</Button>

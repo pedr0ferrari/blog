@@ -1,0 +1,61 @@
+import { Button, Flex, FormLabel, Input, useToast } from "@chakra-ui/react";
+import firebase from "firebase";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { FirebaseCtx } from "../../config/context";
+import useLoggedInUser from "../../hooks/useLoggedInUser";
+
+const InsertAvatar = () => {
+  const { register, handleSubmit } = useForm();
+  const { firestore } = useContext(FirebaseCtx);
+  const { user } = useLoggedInUser();
+  const toast = useToast();
+
+  const storeImageOnBucket = (avatarFile) => {
+    try {
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child(`userAvatar/${avatarFile[0].name}`);
+      console.log("imageRef", imageRef);
+      imageRef.put(avatarFile[0]).then((snapshot) => {
+        console.log("snapshot", snapshot);
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const addAvatarUrlToUser = async (avatarUrl) => {
+    try {
+      user &&
+        (await firestore
+          .collection("users")
+          .doc(user.uid)
+          .set({ ...user, avatarUrl: avatarUrl }));
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const handleImageUpload = (data) => {
+    try {
+      console.log(data);
+      storeImageOnBucket(data.avatarFile);
+      addAvatarUrlToUser(data.avatarFile[0].name);
+    } catch (error) {
+      toast({
+        title: "Ocorreu um erro... Tente novamente",
+        status: "error",
+      });
+    }
+  };
+
+  return (
+    <Flex as="form" onSubmit={handleSubmit(handleImageUpload)}>
+      <FormLabel>avatar</FormLabel>
+      <Input type="file" {...register("avatarFile")} />
+      <Button type="submit">Salvar avatar</Button>
+    </Flex>
+  );
+};
+
+export default InsertAvatar;

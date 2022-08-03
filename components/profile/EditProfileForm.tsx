@@ -4,9 +4,14 @@ import { useForm } from "react-hook-form";
 import { FirebaseCtx } from "../../config/context";
 import { UserType } from "../../interface/User";
 
+export interface UpdateUserFormType {
+  email: string;
+  name: string;
+}
+
 const EditProfileForm: React.FC<{ user: UserType }> = ({ user }) => {
   const { authUser, firestore } = useContext(FirebaseCtx);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<UpdateUserFormType>({
     defaultValues: {
       name: user.name,
       email: user.email,
@@ -15,7 +20,7 @@ const EditProfileForm: React.FC<{ user: UserType }> = ({ user }) => {
 
   const toast = useToast();
 
-  const handleUpdateForm = async (data: any) => {
+  const handleUpdateForm = async (data: UpdateUserFormType) => {
     try {
       if (authUser) {
         await authUser.updateEmail(data.email);

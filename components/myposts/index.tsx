@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid } from "@chakra-ui/react";
+import { Grid, useToast } from "@chakra-ui/react";
 import { FirebaseCtx } from "../../config/context";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
 import { PostInterface } from "../../interface/Post";
@@ -14,8 +14,27 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   const [list, setList] = useState<PostInterface[]>([]);
   const { firestore } = useContext(FirebaseCtx);
   const { user } = useLoggedInUser();
+  const toast = useToast();
 
   const handleGetUserPosts = async (user: UserType) => {
+    try {
+      const list = user && (await getUserPosts(user));
+      const orderedList = list.sort((x, y) => {
+        return x.createdAt - y.createdAt;
+      });
+
+      orderedList.reverse();
+
+      setList(list);
+    } catch (error) {
+      toast({
+        title: "Ocorreu um erro... Tente novamente",
+        status: "error",
+      });
+    }
+  };
+
+  const getUserPosts = async (user: UserType) => {
     try {
       const postsCollection = await firestore
         .collection("posts")
@@ -27,10 +46,9 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         return data;
       });
 
-      setList(postsList);
+      return postsList;
     } catch (error) {
-      // change this to TOAST with error
-      console.log(error);
+      throw new Error(error);
     }
   };
 

@@ -1,26 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
-import PostCard, { Author } from "./post";
-import { Grid } from "@chakra-ui/react";
+import PostCard from "./post";
+import { Grid, useToast } from "@chakra-ui/react";
 import { FirebaseCtx } from "../../config/context";
 import { PostInterface } from "../../interface/Post";
 
 const PostList: React.FC = () => {
   const [list, setList] = useState([]);
   const { firestore } = useContext(FirebaseCtx);
+  const toast = useToast();
 
   const handleGetPosts = async () => {
     try {
       const postsCollection = await firestore.collection("posts").get();
       const postsList = postsCollection.docs.map((doc) => {
         const data = doc.data();
-        console.log("cadaItemDaLista", data);
         return data;
       });
-      console.log("postsList", postsList);
       setList(postsList);
     } catch (error) {
       // change this to TOAST with error
-      console.log(error);
+      toast({
+        title: "Ocorreu um erro! Tente novamente",
+        status: "error",
+      });
     }
   };
 
