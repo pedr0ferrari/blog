@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, FormLabel, Input } from "@chakra-ui/react";
+import { Button, Flex, FormLabel, Input, useToast } from "@chakra-ui/react";
 import firebase from "firebase";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ const InsertAvatar = () => {
   const { register, handleSubmit } = useForm();
   const { firestore } = useContext(FirebaseCtx);
   const { user } = useLoggedInUser();
+  const toast = useToast();
 
   const storeImageOnBucket = (avatarFile) => {
     try {
@@ -19,7 +20,7 @@ const InsertAvatar = () => {
         console.log("snapshot", snapshot);
       });
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -31,14 +32,21 @@ const InsertAvatar = () => {
           .doc(user.uid)
           .set({ ...user, avatarUrl: avatarUrl }));
     } catch (error) {
-      console.error(error);
+      throw new Error(error);
     }
   };
 
   const handleImageUpload = (data) => {
-    console.log(data);
-    storeImageOnBucket(data.avatarFile);
-    addAvatarUrlToUser(data.avatarFile[0].name);
+    try {
+      console.log(data);
+      storeImageOnBucket(data.avatarFile);
+      addAvatarUrlToUser(data.avatarFile[0].name);
+    } catch (error) {
+      toast({
+        title: "Ocorreu um erro... Tente novamente",
+        status: "error",
+      });
+    }
   };
 
   return (
