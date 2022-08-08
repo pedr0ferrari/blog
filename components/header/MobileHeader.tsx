@@ -3,7 +3,7 @@ import { Button, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FirebaseCtx } from "../../config/context";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
-import { HiMenu } from "react-icons/Hi";
+import { HiMenu } from "react-icons/hi";
 
 const MobileHeader = () => {
   const { user } = useLoggedInUser();
