@@ -28,6 +28,7 @@ const MobileHeader = () => {
         minHeight="80px"
         alignItems="center"
         bg="amarelo.420"
+        display={{ base: "flex", md: "flex", lg: "none", xl: "none" }}
       >
         <Heading fontFamily="mono" fontWeight="normal" size="lg" flexGrow="1">
           bloguerino
@@ -74,8 +75,7 @@ const MobileHeader = () => {
           >
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/")}
             >
               Home
@@ -83,8 +83,7 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/meusposts")}
             >
               Meus Posts
@@ -92,8 +91,7 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/contato")}
             >
               Contato
@@ -101,8 +99,7 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/perfil")}
             >
               Perfil
@@ -110,8 +107,7 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={async () => {
                 await auth.signOut();
                 handleRoute("/");
@@ -132,8 +128,7 @@ const MobileHeader = () => {
           >
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/")}
             >
               Home
@@ -141,8 +136,7 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/contato")}
             >
               Contato
@@ -150,16 +144,14 @@ const MobileHeader = () => {
 
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/registro")}
             >
               Registro
             </Button>
             <Button
               size="lg"
-              as="a"
-              bg="#F5F5D8"
+              variant="headerBtn"
               onClick={() => handleRoute("/login")}
             >
               Login

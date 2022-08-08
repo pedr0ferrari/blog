@@ -19,11 +19,11 @@ const WebHeader = () => {
       paddingX={8}
       height="11vh"
       minHeight="80px"
-      borderRadius="10px"
       alignItems="center"
-      backgroundColor="rgba(226, 227, 149, 1)"
+      bg="amarelo.420"
+      display={{ base: "none", md: "none", lg: "flex", xl: "flex" }}
     >
-      <Heading size="2xl" flexGrow="1">
+      <Heading fontFamily="mono" fontWeight="normal" size="xl" flexGrow="1">
         bloguerino
       </Heading>
 
@@ -31,8 +31,7 @@ const WebHeader = () => {
         <Flex as="nav" gap={3}>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/")}
           >
             Home
@@ -40,8 +39,7 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/meusposts")}
           >
             Meus Posts
@@ -49,8 +47,7 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/contato")}
           >
             Contato
@@ -58,8 +55,7 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/perfil")}
           >
             Perfil
@@ -67,8 +63,7 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={async () => {
               await auth.signOut();
               handleRoute("/");
@@ -81,8 +76,7 @@ const WebHeader = () => {
         <Flex as="nav" gap={3}>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/")}
           >
             Home
@@ -90,8 +84,7 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/contato")}
           >
             Contato
@@ -99,16 +92,14 @@ const WebHeader = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/registro")}
           >
             Registro
           </Button>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/login")}
           >
             Login

@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <>
       <MobileHeader />
-      {/* <WebHeader /> */}
+      <WebHeader />
     </>
   );
 };
