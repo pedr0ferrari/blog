@@ -10,7 +10,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import Header from "../components/header/header";
+import Header from "../components/header/Header";
 import Main from "../layouts/Main";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";

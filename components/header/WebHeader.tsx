@@ -4,12 +4,10 @@ import { useRouter } from "next/router";
 import { FirebaseCtx } from "../../config/context";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
 
-const Header = () => {
+const WebHeader = () => {
   const { user } = useLoggedInUser();
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
-
-  const firstName = user && user.name.split(" ").slice(0, 1);
 
   const handleRoute = (path: string) => {
     router.push(path);
@@ -19,26 +17,21 @@ const Header = () => {
     <Flex
       as="header"
       paddingX={8}
-      height="10vh"
+      height="11vh"
+      minHeight="80px"
       alignItems="center"
-      backgroundColor="antiquewhite"
+      bg="amarelo.420"
+      display={{ base: "none", md: "none", lg: "flex", xl: "flex" }}
     >
-      {user ? (
-        <Heading size="2xl" flexGrow="1">
-          {firstName}
-        </Heading>
-      ) : (
-        <Heading size="2xl" flexGrow="1">
-          *~ITALO VIADO~*
-        </Heading>
-      )}
+      <Heading fontFamily="mono" fontWeight="normal" size="xl" flexGrow="1">
+        bloguerino
+      </Heading>
 
       {user ? (
         <Flex as="nav" gap={3}>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/")}
           >
             Home
@@ -46,8 +39,7 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/meusposts")}
           >
             Meus Posts
@@ -55,8 +47,7 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/contato")}
           >
             Contato
@@ -64,8 +55,7 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/perfil")}
           >
             Perfil
@@ -73,8 +63,7 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={async () => {
               await auth.signOut();
               handleRoute("/");
@@ -87,8 +76,7 @@ const Header = () => {
         <Flex as="nav" gap={3}>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/")}
           >
             Home
@@ -96,8 +84,7 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/contato")}
           >
             Contato
@@ -105,16 +92,14 @@ const Header = () => {
 
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/registro")}
           >
             Registro
           </Button>
           <Button
             size="lg"
-            as="a"
-            colorScheme="yellow"
+            variant="headerBtn"
             onClick={() => handleRoute("/login")}
           >
             Login
@@ -125,4 +110,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default WebHeader;

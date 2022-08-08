@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Header from "../components/header/header";
+import Header from "../components/header/Header";
 import { FirebaseCtx } from "../config/context";
 import Main from "../layouts/Main";
 
