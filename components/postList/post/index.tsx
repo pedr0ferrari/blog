@@ -57,67 +57,38 @@ const PostCard: React.FC<{
   }, []);
 
   const date = new Date(post.createdAt).toUTCString().slice(0, -3);
-  if (index === 0) {
-    return (
-      <GridItem colSpan={6} marginY={8}>
-        <Flex>
-          <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
-          <Flex direction="column" paddingX={5} paddingY={1}>
-            <Flex as="header" direction="column">
-              <Text fontSize="4xl" fontWeight="bold">
-                {post.title}
-              </Text>
-              <Text paddingY={2}>{post.content}</Text>
-            </Flex>
-            <Text fontSize="2xl">{post.description}</Text>
-            <Flex as="footer" paddingY={2} marginTop="auto">
-              <Image
-                w={10}
-                h={10}
-                borderRadius="full"
-                src={authorAvatarUrl}
-                alt={author && `avatar de ${author.name}`}
-              />
-              <Flex direction="column" paddingX={2}>
-                <p>author: {author && author.name}</p>
-                <p>
-                  <i>{date}</i>
-                </p>
-              </Flex>
-            </Flex>
-          </Flex>
+  return (
+    <GridItem
+      colSpan={2}
+      bg="amarelo.420"
+      boxShadow="0 0 8px grey"
+      paddingX={4}
+      paddingY={2}
+    >
+      <header>
+        <Text fontSize="xl" fontWeight="bold">
+          {post.title}
+        </Text>
+        <Text paddingY={1}>{post.content}</Text>
+      </header>
+      <p>{post.description}</p>
+      <Flex as="footer" paddingY={2} marginTop="auto">
+        <Image
+          w={10}
+          h={10}
+          borderRadius="full"
+          src={authorAvatarUrl}
+          alt={author && `avatar de ${author.name}`}
+        />
+        <Flex direction="column" paddingX={2}>
+          <p>author: {author && author.name}</p>
+          <p>
+            <i>{date}</i>
+          </p>
         </Flex>
-      </GridItem>
-    );
-  } else {
-    return (
-      <GridItem colSpan={2} bg="white" paddingX={4} paddingY={2}>
-        <header>
-          <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
-          <Text fontSize="xl" fontWeight="bold">
-            {post.title}
-          </Text>
-          <Text paddingY={1}>{post.content}</Text>
-        </header>
-        <p>{post.description}</p>
-        <Flex as="footer" paddingY={2} marginTop="auto">
-          <Image
-            w={10}
-            h={10}
-            borderRadius="full"
-            src={authorAvatarUrl}
-            alt={author && `avatar de ${author.name}`}
-          />
-          <Flex direction="column" paddingX={2}>
-            <p>author: {author && author.name}</p>
-            <p>
-              <i>{date}</i>
-            </p>
-          </Flex>
-        </Flex>
-      </GridItem>
-    );
-  }
+      </Flex>
+    </GridItem>
+  );
 };
 
 export default PostCard;

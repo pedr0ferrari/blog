@@ -1,6 +1,13 @@
 import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
+  styles: {
+    global: {
+      "html, body": {
+        bg: "#F5F5D8",
+      },
+    },
+  },
   colors: {
     amarelo: {
       420: "#E2E395",
@@ -24,6 +31,10 @@ const theme = extendTheme({
         headerBtn: {
           color: "#0A0A0A",
           bgColor: "#F5F5D8",
+          boxShadow: "0 0 2px rgba(0,0,0,0.3)",
+          _hover: {
+            boxShadow: "0 0 2px rgba(0,0,0,0.8)",
+          },
         },
       },
       baseStyle: {

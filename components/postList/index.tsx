@@ -34,8 +34,8 @@ const PostList: React.FC = () => {
     <Grid
       h="200px"
       templateRows="repeat(3, 1fr)"
-      templateColumns="repeat(6, 1fr)"
-      gap={7}
+      templateColumns="repeat(1, 1fr)"
+      gap={8}
     >
       {list.map((post: PostInterface, index: number) => {
         return <PostCard key={post.uid} post={post} index={index} />;

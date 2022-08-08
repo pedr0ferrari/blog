@@ -10,9 +10,8 @@ const Main: React.FC<{
       maxWidth="1140px"
       minHeight="90vh"
       direction="column"
-      padding="2rem 4rem"
+      padding="8"
       margin="0 auto"
-      backgroundColor="rgb(213, 216, 196)"
     >
       {children}
     </Flex>
