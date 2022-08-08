@@ -45,12 +45,15 @@ const PostCard: React.FC<{
   };
 
   useEffect(() => {
-    console.log(user && user.avatarUrl);
-    user && getHttpReference(user.avatarUrl);
-  }, [user]);
+    author && getHttpReference(author.avatarUrl);
+  }, [author]);
 
   useEffect(() => {
     handleGetUserById();
+  }, []);
+
+  useEffect(() => {
+    console.log("renderizou");
   }, []);
 
   const date = new Date(post.createdAt).toUTCString().slice(0, -3);

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/header/header";
+import Header from "../components/header/Header";
 import Main from "../layouts/Main";
 import { Button, useDisclosure } from "@chakra-ui/react";
 

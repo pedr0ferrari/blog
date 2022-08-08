@@ -1,4 +1,4 @@
-import Header from "../components/header/header";
+import Header from "../components/header/Header";
 import Main from "../layouts/Main";
 import React, { useEffect, useState } from "react";
 import { Button, Flex, Text, Image } from "@chakra-ui/react";
