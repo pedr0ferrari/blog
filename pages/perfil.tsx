@@ -53,7 +53,10 @@ const Perfil: React.FC = () => {
           <Text>Nome: {user && user.name}</Text>
           <Text>Email: {user && user.email}</Text>
           <Text>Conta criada em: {createdAtFormated}</Text>
-          <Button onClick={() => setProfileIsOpen(!profileIsOpen)}>
+          <Button
+            onClick={() => setProfileIsOpen(!profileIsOpen)}
+            variant="mainBtn"
+          >
             Editar perfil
           </Button>
           {profileIsOpen && user ? <EditProfile user={user} /> : <></>}

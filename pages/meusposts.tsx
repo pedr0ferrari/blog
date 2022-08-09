@@ -12,7 +12,12 @@ const MeusPosts: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Button onClick={onOpen} width="max-content">
+        <Button
+          onClick={onOpen}
+          width="max-content"
+          marginBottom="2rem"
+          variant="mainBtn"
+        >
           Criar postagem
         </Button>
         <MyPosts isOpen={isOpen} onClose={onClose} />
