@@ -71,8 +71,10 @@ const Contato: React.FC = () => {
           direction="column"
           gap={5}
           onSubmit={handleSubmit(handleContact)}
+          maxWidth="lg"
+          w="100%"
         >
-          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
+          <Text as="h1" fontSize="3xl" fontWeight="normal">
             Entre em contato conosco!
           </Text>
           <FormControl isInvalid={Boolean(errors.name)}>
@@ -83,6 +85,7 @@ const Contato: React.FC = () => {
                 required: "Obrigatório preencher este campo!",
                 minLength: { value: 3, message: "Nome muito curto..." },
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.name && errors.name.message}
@@ -97,6 +100,7 @@ const Contato: React.FC = () => {
               {...register("email", {
                 required: "Obrigatório preencher este campo!",
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.email && errors.email.message}.
@@ -112,13 +116,19 @@ const Contato: React.FC = () => {
                 required: "Obrigatório preencher este campo!",
                 minLength: { value: 20, message: "Mensagem muito curta..." },
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.message && errors.message.message}
             </FormErrorMessage>
           </FormControl>
 
-          <Button type="submit" isDisabled={!isValid}>
+          <Button
+            type="submit"
+            isDisabled={!isValid}
+            variant="solid"
+            alignSelf="left"
+          >
             Enviar
           </Button>
         </Flex>

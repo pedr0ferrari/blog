@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import "@fontsource/roboto-mono";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";

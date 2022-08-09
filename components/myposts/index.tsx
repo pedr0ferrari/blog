@@ -58,10 +58,10 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 
   return (
     <Grid
-      h="200px"
-      templateRows="repeat(3, 1fr)"
-      templateColumns="repeat(6, 1fr)"
+      templateRows="repeat(1, 1fr)"
+      templateColumns="repeat(1, 1fr)"
       gap={7}
+      paddingBottom="8"
     >
       <CreatePostModal isOpen={isOpen} onClose={onClose} />
       {list &&
