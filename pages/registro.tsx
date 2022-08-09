@@ -100,8 +100,10 @@ const Registro: React.FC = () => {
           direction="column"
           gap={5}
           onSubmit={handleSubmit(handleRegister)}
+          maxWidth="lg"
+          w="100%"
         >
-          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
+          <Text as="h1" fontSize="3xl" fontWeight="normal">
             Registre-se
           </Text>
           <FormControl isInvalid={Boolean(errors.name)}>
@@ -112,6 +114,7 @@ const Registro: React.FC = () => {
                 required: "Obrigatório preencher este campo!",
                 minLength: { value: 3, message: "Nome muito curto..." },
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.name && errors.name.message}
@@ -126,6 +129,7 @@ const Registro: React.FC = () => {
               {...register("email", {
                 required: "Obrigatório preencher este campo!",
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.email && errors.email.message}
@@ -144,6 +148,7 @@ const Registro: React.FC = () => {
                   message: "Senha deve conter no mínimo 6 caractéres.",
                 },
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.password && errors.password.message}
@@ -158,6 +163,7 @@ const Registro: React.FC = () => {
               {...register("confirmPassword", {
                 required: "Obrigatório preencher este campo!",
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.confirmPassword && errors.confirmPassword.message}

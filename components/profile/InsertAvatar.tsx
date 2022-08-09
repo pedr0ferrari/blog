@@ -1,4 +1,11 @@
-import { Button, Flex, FormLabel, Input, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
 import firebase from "firebase";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -50,10 +57,41 @@ const InsertAvatar = () => {
   };
 
   return (
-    <Flex as="form" onSubmit={handleSubmit(handleImageUpload)}>
-      <FormLabel>avatar</FormLabel>
-      <Input type="file" {...register("avatarFile")} />
-      <Button type="submit">Salvar avatar</Button>
+    <Flex
+      as="form"
+      direction={{ base: "column", md: "row", lg: "row", xl: "row" }}
+      gap={5}
+      onSubmit={handleSubmit(handleImageUpload)}
+    >
+      <FormControl>
+        <FormLabel htmlFor="avatarFile">
+          Insira um avatar para seu perfil.
+        </FormLabel>
+        <Input
+          pt={1}
+          width="max-content"
+          type="file"
+          {...register("avatarFile")}
+          borderColor="black"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "300px",
+            flexBasis: "100%",
+          }}
+        />
+      </FormControl>
+      <Button
+        type="submit"
+        alignSelf={{
+          base: "flex-start",
+          md: "flex-end",
+          lg: "flex-end",
+          xl: "flex-end",
+        }}
+      >
+        Salvar
+      </Button>
     </Flex>
   );
 };

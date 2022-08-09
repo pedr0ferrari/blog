@@ -71,7 +71,8 @@ const Contato: React.FC = () => {
           direction="column"
           gap={5}
           onSubmit={handleSubmit(handleContact)}
-          alignSelf="center"
+          maxWidth="lg"
+          w="100%"
         >
           <Text as="h1" fontSize="3xl" fontWeight="normal">
             Entre em contato conosco!
@@ -125,7 +126,7 @@ const Contato: React.FC = () => {
           <Button
             type="submit"
             isDisabled={!isValid}
-            variant="mainBtn"
+            variant="solid"
             alignSelf="left"
           >
             Enviar

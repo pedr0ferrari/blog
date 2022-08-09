@@ -4,6 +4,7 @@ import Main from "../layouts/Main";
 import { Button, useDisclosure } from "@chakra-ui/react";
 
 import MyPosts from "../components/myposts";
+import Footer from "../components/footer";
 
 const MeusPosts: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,7 +17,7 @@ const MeusPosts: React.FC = () => {
           onClick={onOpen}
           width="max-content"
           marginBottom="2rem"
-          variant="mainBtn"
+          variant="solid"
         >
           Criar postagem
         </Button>

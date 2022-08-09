@@ -64,6 +64,7 @@ const PostCard: React.FC<{
       boxShadow="0 0 8px grey"
       paddingX={4}
       paddingY={2}
+      height="max-content"
     >
       <header>
         <Text fontSize="xl" fontWeight="bold">

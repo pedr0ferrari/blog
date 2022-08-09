@@ -28,11 +28,12 @@ const theme = extendTheme({
   components: {
     Button: {
       variants: {
-        mainBtn: {
+        solid: {
           color: "#0A0A0A",
           bgColor: "#E2E395",
           boxShadow: "0 0 2px rgba(0,0,0,0.5)",
           _hover: {
+            bgColor: "#E2E395",
             boxShadow: "0 0 2px rgba(0,0,0,0.9)",
           },
         },

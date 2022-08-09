@@ -36,7 +36,6 @@ const Perfil: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(user && user.avatarUrl);
     user && getHttpReference(user.avatarUrl);
   }, [user]);
 
@@ -44,18 +43,23 @@ const Perfil: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Flex direction="column" gap={5}>
-          <Text fontSize="3xl" fontWeight="extrabold">
+        <Flex direction="column" gap={5} maxWidth="lg" w="100%">
+          <Text as="h1" fontSize="3xl" fontWeight="">
             Dados cadastrados
           </Text>
           <InsertAvatar />
-          <Image alt="" src="" id="avatarImg" />
+          <Image
+            alt={`Avatar de ${user && user.name}`}
+            src=""
+            id="avatarImg"
+            boxSize="300"
+          />
           <Text>Nome: {user && user.name}</Text>
           <Text>Email: {user && user.email}</Text>
           <Text>Conta criada em: {createdAtFormated}</Text>
           <Button
             onClick={() => setProfileIsOpen(!profileIsOpen)}
-            variant="mainBtn"
+            variant="solid"
           >
             Editar perfil
           </Button>

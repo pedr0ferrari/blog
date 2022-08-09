@@ -75,8 +75,10 @@ const Login: React.FC = () => {
           direction="column"
           gap={5}
           onSubmit={handleSubmit(handleLogin)}
+          maxWidth="lg"
+          w="100%"
         >
-          <Text as="h1" fontSize="3xl" fontWeight="extrabold">
+          <Text as="h1" fontSize="3xl" fontWeight="normal">
             Faça o login
           </Text>
 
@@ -88,6 +90,7 @@ const Login: React.FC = () => {
               {...register("email", {
                 required: "Obrigatório preencher este campo!",
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.email && errors.email.message}
@@ -102,6 +105,7 @@ const Login: React.FC = () => {
               {...register("password", {
                 required: "Obrigatório preencher este campo!",
               })}
+              borderColor="black"
             />
             <FormErrorMessage>
               {errors.password && errors.password.message}

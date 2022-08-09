@@ -17,7 +17,7 @@ const WebHeader = () => {
     <Flex
       as="header"
       paddingX={8}
-      height="11vh"
+      height="10vh"
       minHeight="80px"
       alignItems="center"
       bg="amarelo.420"
