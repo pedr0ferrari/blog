@@ -24,11 +24,14 @@ const MobileHeader = () => {
       <Flex
         as="header"
         paddingX={8}
-        height="11vh"
+        height="10vh"
+        width="100%"
         minHeight="80px"
         alignItems="center"
         bg="amarelo.420"
         display={{ base: "flex", md: "flex", lg: "none", xl: "none" }}
+        position={openMenu ? "fixed" : "static"}
+        zIndex={openMenu ? "50" : ""}
       >
         <Heading fontFamily="mono" fontWeight="normal" size="lg" flexGrow="1">
           bloguerino
@@ -39,6 +42,9 @@ const MobileHeader = () => {
           colorScheme="amarelo"
           color="preto"
           aria-label="open menu"
+          boxShadow="none"
+          outline="none"
+          _hover={{ boxShadow: "none", outline: "none" }}
           icon={<HiMenu />}
           onClick={handleOpenMenu}
         />
@@ -61,8 +67,10 @@ const MobileHeader = () => {
         height="100vh"
         bg="rgba(226, 227, 149, 1)"
         display={{ base: openMenu ? "flex" : "none" }}
+        position={openMenu ? "fixed" : "static"}
+        top={openMenu ? "10vh" : ""}
+        zIndex={openMenu ? "50" : ""}
       >
-        {" "}
         {user ? (
           <Flex
             as="nav"

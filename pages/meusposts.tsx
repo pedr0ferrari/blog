@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/header/Header";
 import Main from "../layouts/Main";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Container, useDisclosure } from "@chakra-ui/react";
 
 import MyPosts from "../components/myposts";
 import Footer from "../components/footer";
@@ -11,17 +11,20 @@ const MeusPosts: React.FC = () => {
 
   return (
     <>
-      <Header />
       <Main>
-        <Button
-          onClick={onOpen}
-          width="max-content"
-          marginBottom="2rem"
-          variant="solid"
-        >
-          Criar postagem
-        </Button>
-        <MyPosts isOpen={isOpen} onClose={onClose} />
+        <Header />
+        <Container as="section" minHeight="70vh" paddingY={8} centerContent>
+          <Button
+            onClick={onOpen}
+            width="max-content"
+            marginBottom="2rem"
+            variant="solid"
+          >
+            Criar postagem
+          </Button>
+          <MyPosts isOpen={isOpen} onClose={onClose} />
+        </Container>
+        <Footer />
       </Main>
     </>
   );

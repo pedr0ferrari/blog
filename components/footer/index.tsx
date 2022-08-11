@@ -9,17 +9,10 @@ import {
 import React from "react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-const index = () => {
+const Footer = () => {
   return (
-    <Container
-      as="footer"
-      role="contentinfo"
-      py={{ base: "12", md: "16" }}
-      marginTop="auto"
-      w="100vw"
-      bg="amarelo.420"
-    >
-      <Stack spacing={{ base: "4", md: "5" }}>
+    <Flex as="footer" role="contentinfo" bg="amarelo.420" h="20vh" w="100%">
+      <Container>
         <Stack justify="space-between" direction="row" align="center">
           <ButtonGroup variant="ghost">
             <IconButton
@@ -46,13 +39,9 @@ const index = () => {
           &copy; {new Date().getFullYear()} Midnight Programações. Todos os
           direitos reservados
         </Text>
-      </Stack>
-    </Container>
-
-    // <Flex bg="amarelo.420" w="100%" marginTop="auto">
-    //   footer
-    // </Flex>
+      </Container>
+    </Flex>
   );
 };
 
-export default index;
+export default Footer;
