@@ -48,8 +48,8 @@ const EditProfileForm: React.FC<{ user: UserType }> = ({ user }) => {
       gap={5}
       onSubmit={handleSubmit(handleUpdateForm)}
     >
-      <Input type="name" {...register("name")} />
-      <Input type="email" {...register("email")} />
+      <Input type="name" {...register("name")} borderColor="black" />
+      <Input type="email" {...register("email")} borderColor="black" />
       <Button colorScheme="teal" type="submit">
         Confirmar edição de perfil
       </Button>
