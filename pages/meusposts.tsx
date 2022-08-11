@@ -13,7 +13,13 @@ const MeusPosts: React.FC = () => {
     <>
       <Main>
         <Header />
-        <Container as="section" minHeight="70vh" paddingY={8} centerContent>
+        <Container
+          as="section"
+          minHeight="70vh"
+          maxWidth="4xl"
+          paddingY={8}
+          centerContent
+        >
           <Button
             onClick={onOpen}
             width="max-content"
