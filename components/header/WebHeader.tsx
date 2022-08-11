@@ -16,6 +16,7 @@ const WebHeader = () => {
   return (
     <Flex
       as="header"
+      w="100%"
       paddingX={8}
       height="10vh"
       minHeight="80px"

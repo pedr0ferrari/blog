@@ -2,19 +2,23 @@ import dynamic from "next/dynamic";
 import Header from "../components/header/Header";
 import Main from "../layouts/Main";
 import React from "react";
+import { NextPage } from "next";
+import { Container } from "@chakra-ui/react";
 import Footer from "../components/footer";
-import Section from "../layouts/Section";
 
 const PostList = dynamic(() => import("../components/postList"), {
   ssr: false,
 });
 
-const HomePage = () => {
+const HomePage: NextPage = () => {
   return (
     <>
-      <Header />
       <Main>
-        <PostList />
+        <Header />
+        <Container as="section" minHeight="70vh" paddingY={8} centerContent>
+          <PostList />
+        </Container>
+        <Footer />
       </Main>
     </>
   );
