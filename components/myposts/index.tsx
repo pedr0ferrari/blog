@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, useToast } from "@chakra-ui/react";
+import { Grid, Spinner, useToast } from "@chakra-ui/react";
 import { FirebaseCtx } from "../../config/context";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
 import { PostInterface } from "../../interface/Post";
@@ -13,7 +13,7 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 }) => {
   const [list, setList] = useState<PostInterface[]>([]);
   const { firestore } = useContext(FirebaseCtx);
-  const { user } = useLoggedInUser();
+  const { user, authState } = useLoggedInUser();
   const toast = useToast();
 
   const handleGetUserPosts = async (user: UserType) => {
@@ -57,18 +57,24 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   }, [user]);
 
   return (
-    <Grid
-      templateRows="repeat(1, 1fr)"
-      templateColumns="repeat(1, 1fr)"
-      gap={7}
-      paddingBottom="8"
-    >
-      <CreatePostModal isOpen={isOpen} onClose={onClose} />
-      {list &&
-        list.map((post, index) => {
-          return <PostCard key={post.uid} post={post} index={index} />;
-        })}
-    </Grid>
+    <>
+      {authState === "LOADING" ? (
+        <Spinner />
+      ) : (
+        <Grid
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(1, 1fr)"
+          gap={7}
+          paddingBottom="8"
+        >
+          <CreatePostModal isOpen={isOpen} onClose={onClose} />
+          {list &&
+            list.map((post, index) => {
+              return <PostCard key={post.uid} post={post} index={index} />;
+            })}
+        </Grid>
+      )}
+    </>
   );
 };
 

@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FirebaseCtx } from "../../config/context";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
 
 const WebHeader = () => {
-  const { user } = useLoggedInUser();
+  const { user, authState } = useLoggedInUser();
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
 
@@ -28,83 +28,89 @@ const WebHeader = () => {
         bloguerino
       </Heading>
 
-      {user ? (
-        <Flex as="nav" gap={3}>
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/")}
-          >
-            Home
-          </Button>
-
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/meusposts")}
-          >
-            Meus Posts
-          </Button>
-
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/contato")}
-          >
-            Contato
-          </Button>
-
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/perfil")}
-          >
-            Perfil
-          </Button>
-
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={async () => {
-              await auth.signOut();
-              handleRoute("/");
-            }}
-          >
-            Logout
-          </Button>
-        </Flex>
+      {authState === "LOADING" ? (
+        <Spinner />
       ) : (
         <Flex as="nav" gap={3}>
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/")}
-          >
-            Home
-          </Button>
+          {user ? (
+            <>
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/")}
+              >
+                Home
+              </Button>
 
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/contato")}
-          >
-            Contato
-          </Button>
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/meusposts")}
+              >
+                Meus Posts
+              </Button>
 
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/registro")}
-          >
-            Registro
-          </Button>
-          <Button
-            size="lg"
-            variant="headerBtn"
-            onClick={() => handleRoute("/login")}
-          >
-            Login
-          </Button>
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/contato")}
+              >
+                Contato
+              </Button>
+
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/perfil")}
+              >
+                Perfil
+              </Button>
+
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={async () => {
+                  await auth.signOut();
+                  handleRoute("/");
+                }}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/")}
+              >
+                Home
+              </Button>
+
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/contato")}
+              >
+                Contato
+              </Button>
+
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/registro")}
+              >
+                Registro
+              </Button>
+              <Button
+                size="lg"
+                variant="headerBtn"
+                onClick={() => handleRoute("/login")}
+              >
+                Login
+              </Button>
+            </>
+          )}
         </Flex>
       )}
     </Flex>
