@@ -8,6 +8,9 @@ const useLoggedInUser = () => {
   const firebaseUserID = authUser ? authUser.uid : null;
   const [user, setUser] = useState<UserType | false | null>(null);
 
+  const authState =
+    user === false ? "LOGGEDOUT" : user === null ? "LOADING" : "LOGGEDIN";
+
   // useeffect para conferir se o user está deslogado
   useEffect(() => {
     if (authUser === false) {
@@ -33,7 +36,7 @@ const useLoggedInUser = () => {
   }, [firebaseUserID]);
 
   // retornar o estado de login (authstate)
-  return { user, authState: "LOADING" };
+  return { user, authState };
 };
 
 export default useLoggedInUser;

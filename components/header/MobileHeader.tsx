@@ -6,7 +6,7 @@ import useLoggedInUser from "../../hooks/useLoggedInUser";
 import { HiMenu } from "react-icons/hi";
 
 const MobileHeader = () => {
-  const { user } = useLoggedInUser();
+  const { user, authState } = useLoggedInUser();
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(false);
@@ -49,18 +49,6 @@ const MobileHeader = () => {
           onClick={handleOpenMenu}
         />
       </Flex>
-
-      {/* another way to ternary openMenu */}
-      {/* {openMenu ? (
-        <Flex
-          width="100%"
-          height="100vh"
-          bg="rgba(226, 227, 149, 1)"
-          display={{ base: "flex" }}
-        ></Flex>
-      ) : (
-        <></>
-      )} */}
 
       <Flex
         width="100%"

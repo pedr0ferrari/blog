@@ -44,7 +44,11 @@ const LoginForm: React.FC = () => {
         router.push("/");
       }
     } catch (error) {
-      throw new Error(error.message);
+      toast({
+        title: "Ocorreu um erro... Tente novamente.",
+        description: `${error.message}`,
+        status: "error",
+      });
     }
   };
   const loginFirebase = async (data) => {
