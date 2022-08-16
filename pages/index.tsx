@@ -12,27 +12,21 @@ const PostList = dynamic(() => import("../components/postList"), {
 });
 
 const HomePage: NextPage = () => {
-  const { user, authState } = useLoggedInUser();
+  const { authState } = useLoggedInUser();
   return (
     <>
       <Main>
-        {authState === "LOADING" ? (
-          <Spinner />
-        ) : (
-          <>
-            <Header />
-            <Container
-              as="section"
-              minHeight="70vh"
-              maxWidth="4xl"
-              paddingY={8}
-              centerContent
-            >
-              <PostList />
-            </Container>
-            <Footer />
-          </>
-        )}
+        <Header />
+        <Container
+          as="section"
+          minHeight="70vh"
+          maxWidth="4xl"
+          paddingY={8}
+          centerContent
+        >
+          {authState === "LOADING" ? <Spinner /> : <PostList />}
+        </Container>
+        <Footer />
       </Main>
     </>
   );
