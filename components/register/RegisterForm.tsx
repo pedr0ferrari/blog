@@ -61,7 +61,6 @@ const RegisterForm: React.FC = () => {
       createdAt: Date.now(),
     };
 
-    console.log("newUser", newUser);
     await createUser(newUser);
     router.push("/");
   };

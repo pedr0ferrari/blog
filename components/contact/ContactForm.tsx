@@ -36,7 +36,6 @@ const ContactForm: React.FC = () => {
   const handleContact = async (data) => {
     try {
       const messageId = await createContactMessage(data);
-      console.log(data.name, data.email, data.message);
       if (messageId) {
         toast({
           title: "Mensagem enviada com sucesso!",

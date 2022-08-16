@@ -27,7 +27,6 @@ try {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
-  console.log("Firebase connected");
 } catch (error) {
   console.error(error);
 }

@@ -22,9 +22,9 @@ const InsertAvatar = () => {
     try {
       const storageRef = firebase.storage().ref();
       const imageRef = storageRef.child(`userAvatar/${avatarFile[0].name}`);
-      console.log("imageRef", imageRef);
+
       imageRef.put(avatarFile[0]).then((snapshot) => {
-        console.log("snapshot", snapshot);
+        return snapshot;
       });
     } catch (error) {
       throw new Error(error);
@@ -45,7 +45,6 @@ const InsertAvatar = () => {
 
   const handleImageUpload = (data) => {
     try {
-      console.log(data);
       storeImageOnBucket(data.avatarFile);
       addAvatarUrlToUser(data.avatarFile[0].name);
     } catch (error) {
