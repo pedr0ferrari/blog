@@ -10,7 +10,12 @@ const WebHeader = () => {
   const router = useRouter();
 
   const handleRoute = (path: string) => {
-    router.push(path);
+    if (router.asPath === "/") {
+      router.reload();
+    } else {
+      router.push(path);
+    }
+    console.log(router);
   };
 
   return (

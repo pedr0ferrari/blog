@@ -20,12 +20,10 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     try {
       const list = user && (await getUserPosts(user));
       const orderedList = list.sort((x, y) => {
-        return x.createdAt - y.createdAt;
+        return y.createdAt - x.createdAt;
       });
 
-      orderedList.reverse();
-
-      setList(list);
+      setList(orderedList);
     } catch (error) {
       toast({
         title: "Ocorreu um erro... Tente novamente",

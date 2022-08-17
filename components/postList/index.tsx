@@ -16,7 +16,12 @@ const PostList: React.FC = () => {
         const data = doc.data();
         return data;
       });
-      setList(postsList);
+
+      const orderedList = postsList.sort((x, y) => {
+        return y.createdAt - x.createdAt;
+      });
+
+      setList(orderedList);
     } catch (error) {
       // change this to TOAST with error
       toast({
