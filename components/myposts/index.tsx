@@ -20,7 +20,7 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     try {
       const list = user && (await getUserPosts(user));
       const orderedList = list.sort((x, y) => {
-        return y.createdAt - x.createdAt;
+        return y.createdAt.seconds - x.createdAt.seconds;
       });
 
       setList(orderedList);
@@ -67,8 +67,8 @@ const MyPosts: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         >
           <CreatePostModal isOpen={isOpen} onClose={onClose} />
           {list &&
-            list.map((post, index) => {
-              return <PostCard key={post.uid} post={post} index={index} />;
+            list.map((post) => {
+              return <PostCard key={post.uid} post={post} />;
             })}
         </Grid>
       )}
