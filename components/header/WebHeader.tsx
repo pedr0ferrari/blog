@@ -9,13 +9,17 @@ const WebHeader = () => {
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
 
+  // const handleRoute = (path: string) => {
+  //   console.log("router.asPath", router.asPath);
+  //   if (router.asPath === "/" && authState === "LOGGEDOUT") {
+  //     router.reload();
+  //   } else {
+  //     router.push(path);
+  //   }
+  // };
+
   const handleRoute = (path: string) => {
-    if (router.asPath === "/") {
-      router.reload();
-    } else {
-      router.push(path);
-    }
-    console.log(router);
+    router.push(path);
   };
 
   return (
@@ -77,6 +81,7 @@ const WebHeader = () => {
                 onClick={async () => {
                   await auth.signOut();
                   handleRoute("/");
+                  router.reload();
                 }}
               >
                 Logout
