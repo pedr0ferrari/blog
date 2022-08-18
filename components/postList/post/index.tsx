@@ -1,4 +1,4 @@
-import { Flex, GridItem } from "@chakra-ui/react";
+import { Flex, GridItem, SkeletonCircle } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import firebase from "firebase";
@@ -77,6 +77,14 @@ const PostCard: React.FC<{
           borderRadius="full"
           src={authorAvatarUrl}
           alt={author && `avatar de ${author.name}`}
+          fallback={
+            <SkeletonCircle
+              w={10}
+              h={10}
+              startColor="white"
+              endColor="yellow"
+            />
+          }
         />
         <Flex direction="column" paddingX={2}>
           <p>author: {author && author.name}</p>
