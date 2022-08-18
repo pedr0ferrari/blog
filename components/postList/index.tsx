@@ -16,7 +16,12 @@ const PostList: React.FC = () => {
         const data = doc.data();
         return data;
       });
-      setList(postsList);
+
+      const orderedList = postsList.sort((x, y) => {
+        return y.createdAt - x.createdAt;
+      });
+
+      setList(orderedList);
     } catch (error) {
       // change this to TOAST with error
       toast({
@@ -37,8 +42,8 @@ const PostList: React.FC = () => {
       gap={8}
       paddingBottom="8"
     >
-      {list.map((post: PostInterface, index: number) => {
-        return <PostCard key={post.uid} post={post} index={index} />;
+      {list.map((post: PostInterface) => {
+        return <PostCard key={post.uid} post={post} />;
       })}
     </Grid>
   );

@@ -20,6 +20,7 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FirebaseCtx } from "../config/context";
 import useLoggedInUser from "../hooks/useLoggedInUser";
+import firebase from "firebase/app";
 
 type PostData = {
   title: string;
@@ -50,6 +51,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       if (postId) {
         onClose();
         reset();
+        window.location.reload();
         toast({
           title: "Postagem criada com sucesso!",
           status: "success",
@@ -68,15 +70,15 @@ const CreatePostModal = ({ isOpen, onClose }) => {
     try {
       const postRef = firestore.collection("posts").doc();
       const postId = postRef.id;
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
       await postRef.set({
         ...newPost,
         uid: postId,
         userId: user && user.uid,
-        createdAt: Date.now(),
+        createdAt: timestamp,
       });
 
-      console.log(newPost);
       return postId;
     } catch (error) {
       throw new Error(error.message);

@@ -1,29 +1,25 @@
-import { Flex, GridItem } from "@chakra-ui/react";
+import { Flex, GridItem, SkeletonCircle } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import firebase from "firebase";
 import React, { useContext, useEffect, useState } from "react";
 
 import { FirebaseCtx } from "../../../config/context";
-import useLoggedInUser from "../../../hooks/useLoggedInUser";
-import { PostInterface } from "../../../interface/Post";
+import { CreatedAt, PostInterface } from "../../../interface/Post";
 import { UserType } from "../../../interface/User";
 
 const PostCard: React.FC<{
   post: PostInterface;
-  index: number;
-}> = ({ post, index }) => {
+}> = ({ post }) => {
   const { firestore } = useContext(FirebaseCtx);
   const [author, setAuthor] = useState<UserType | null>(null);
   const [authorAvatarUrl, setAuthorAvatarUrl] = useState<string>("");
-  const { user } = useLoggedInUser();
 
   const handleGetUserById = async () => {
     try {
       const userRef = await firestore.collection("users").doc(post.userId);
       const userById = await userRef.get();
       const dataUserById = userById.data() as UserType;
-      console.log(dataUserById);
       setAuthor(dataUserById);
     } catch (error) {
       console.log(error);
@@ -52,11 +48,12 @@ const PostCard: React.FC<{
     handleGetUserById();
   }, []);
 
-  useEffect(() => {
-    console.log("renderizou");
-  }, []);
+  const createdAt: CreatedAt = post.createdAt;
 
-  const date = new Date(post.createdAt).toUTCString().slice(0, -3);
+  const createdAtInSeconds: number = createdAt.seconds;
+  const createdAtInMs = createdAtInSeconds * 1000;
+  const date = new Date(createdAtInMs).toLocaleString();
+
   return (
     <GridItem
       colSpan={2}
@@ -80,12 +77,18 @@ const PostCard: React.FC<{
           borderRadius="full"
           src={authorAvatarUrl}
           alt={author && `avatar de ${author.name}`}
+          fallback={
+            <SkeletonCircle
+              w={10}
+              h={10}
+              startColor="white"
+              endColor="yellow"
+            />
+          }
         />
         <Flex direction="column" paddingX={2}>
           <p>author: {author && author.name}</p>
-          <p>
-            <i>{date}</i>
-          </p>
+          <i>{date}</i>
         </Flex>
       </Flex>
     </GridItem>

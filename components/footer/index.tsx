@@ -60,7 +60,7 @@ const Footer = () => {
         </Text>
         <Text fontSize="sm" color="subtle">
           &copy; {new Date().getFullYear()} Pedro Santana Ferrari. Todos os
-          direitos reservados
+          direitos reservados.
         </Text>
       </Flex>
     </Flex>

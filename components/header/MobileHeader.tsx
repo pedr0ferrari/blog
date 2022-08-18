@@ -107,6 +107,7 @@ const MobileHeader = () => {
               onClick={async () => {
                 await auth.signOut();
                 handleRoute("/");
+                router.reload();
               }}
             >
               Logout

@@ -3,6 +3,11 @@ export interface PostInterface {
   content: string;
   description: string;
   userId: string;
-  createdAt: number;
+  createdAt: CreatedAt;
   uid: string;
 }
+
+export type CreatedAt = {
+  seconds: number;
+  nanoseconds: number;
+};
